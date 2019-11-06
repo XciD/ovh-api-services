@@ -16,4 +16,40 @@ angular.module('ovh-api-services').service('OvhApiConnectivityEligibilitySearchV
       inseeCode: '@inseeCode',
     },
   },
+  searchBuildings: {
+    url: '/connectivity/eligibility/search/buildings',
+    method: 'POST',
+    isArray: false,
+    params: {
+      streetCode: '@streetCode',
+      streetNumber: '@streetNumber',
+    },
+  },
+  searchLines: {
+    url: '/connectivity/eligibility/search/lines',
+    method: 'POST',
+    isArray: false,
+    params: {
+      streetCode: '@streetCode',
+      streetNumber: '@streetNumber',
+    },
+  },
+  searchBuildingByLines: {
+    url: '/connectivity/eligibility/search/buildingsByLine',
+    method: 'POST',
+    isArray: false,
+    params: {
+      lineNumber: '@lineNumber',
+      status: '@status',
+    },
+  },
+  searchMeetings: {
+    url: '/connectivity/eligibility/search/meetings',
+    method: 'POST',
+    isArray: false,
+    params: {
+      eligibilityReference: '@eligibilityReference',
+      productCode: '@productCode',
+    },
+  },
 }));
