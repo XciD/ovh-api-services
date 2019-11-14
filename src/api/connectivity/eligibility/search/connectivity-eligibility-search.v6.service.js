@@ -61,7 +61,7 @@ angular.module('ovh-api-services').service('OvhApiConnectivityEligibilitySearchV
       {
         postData: {
           lineNumber: opts.lineNumber,
-          status: opts.address,
+          status: opts.status,
         },
         successRule: {
           status(elem) {
