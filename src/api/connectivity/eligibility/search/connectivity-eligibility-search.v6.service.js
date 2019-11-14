@@ -17,33 +17,6 @@ angular.module('ovh-api-services').service('OvhApiConnectivityEligibilitySearchV
         inseeCode: '@inseeCode',
       },
     },
-    searchBuildings: {
-      url: '/connectivity/eligibility/search/buildings',
-      method: 'POST',
-      isArray: false,
-      params: {
-        streetCode: '@streetCode',
-        streetNumber: '@streetNumber',
-      },
-    },
-    searchLines: {
-      url: '/connectivity/eligibility/search/lines',
-      method: 'POST',
-      isArray: false,
-      params: {
-        streetCode: '@streetCode',
-        streetNumber: '@streetNumber',
-      },
-    },
-    searchMeetings: {
-      url: '/connectivity/eligibility/search/meetings',
-      method: 'POST',
-      isArray: false,
-      params: {
-        eligibilityReference: '@eligibilityReference',
-        productCode: '@productCode',
-      },
-    },
   });
 
   eligibilitySearch.searchBuildingByLines = function ($scope, opts) {
@@ -69,7 +42,94 @@ angular.module('ovh-api-services').service('OvhApiConnectivityEligibilitySearchV
           },
         },
         scope: $scope.$id,
-        method: 'post',
+        method: 'POST',
+        retryMaxAttempts: 3,
+      },
+    );
+  };
+
+  eligibilitySearch.searchBuildings = function ($scope, opts) {
+    const url = '/connectivity/eligibility/search/buildings';
+
+    $scope.$on('$destroy', () => {
+      Poller.kill({
+        scope: $scope.$id,
+      });
+    });
+
+    return Poller.poll(
+      url,
+      null,
+      {
+        postData: {
+          streetCode: opts.streetCode,
+          streetNumber: opts.streetNumber,
+        },
+        successRule: {
+          status(elem) {
+            return elem.status === 'error' || elem.status === 'ok';
+          },
+        },
+        scope: $scope.$id,
+        method: 'POST',
+        retryMaxAttempts: 3,
+      },
+    );
+  };
+
+  eligibilitySearch.searchLines = function ($scope, opts) {
+    const url = '/connectivity/eligibility/search/lines';
+
+    $scope.$on('$destroy', () => {
+      Poller.kill({
+        scope: $scope.$id,
+      });
+    });
+
+    return Poller.poll(
+      url,
+      null,
+      {
+        postData: {
+          streetCode: opts.streetCode,
+          streetNumber: opts.streetNumber,
+        },
+        successRule: {
+          status(elem) {
+            return elem.status === 'error' || elem.status === 'ok';
+          },
+        },
+        scope: $scope.$id,
+        method: 'POST',
+        retryMaxAttempts: 3,
+      },
+    );
+  };
+
+  eligibilitySearch.searchMeetings = function ($scope, opts) {
+    const url = '/connectivity/eligibility/search/meetings';
+
+    $scope.$on('$destroy', () => {
+      Poller.kill({
+        scope: $scope.$id,
+      });
+    });
+
+    return Poller.poll(
+      url,
+      null,
+      {
+        postData: {
+          eligibilityReference: opts.eligibilityReference,
+          productCode: opts.productCode,
+        },
+        successRule: {
+          status(elem) {
+            return elem.status === 'error' || elem.status === 'ok';
+          },
+        },
+        scope: $scope.$id,
+        method: 'POST',
         retryMaxAttempts: 3,
       },
     );
