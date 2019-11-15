@@ -7,6 +7,14 @@ angular.module('ovh-api-services').service('OvhApiConnectivityEligibilityV6', ($
       isArray: false,
       cache: OvhApiConnectivityEligibility.cache,
     },
+    eligibility: {
+      url: '/connectivity/eligibility/test ',
+      method: 'GET',
+      isArray: false,
+      params: {
+        eligibilityReference: '@eligibilityReference',
+      },
+    },
   });
 
   eligibility.testAddress = function ($scope, opts) {
